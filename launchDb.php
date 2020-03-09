@@ -28,5 +28,3 @@ $pdo->query('CREATE TABLE IF NOT EXISTS`textanalysis`.`word` ( `id` INT(255) NOT
 $pdo->query('ALTER TABLE `word` ADD INDEX( `text_id`)');
 
 $pdo->query('ALTER TABLE `uploaded_text` ADD CONSTRAINT `uploaded_text_ibfk_1` FOREIGN KEY (`id`) REFERENCES `word`(`text_id`) ON DELETE RESTRICT ON UPDATE CASCADE;');
- // Переходим на страницу index.php
-header('Location: index.php');
