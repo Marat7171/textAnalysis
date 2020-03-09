@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>MyForm</title>
+	<title></title>
 </head>
 <body>
 
-<form method="post" enctype="multipart/form-data" action="textAnalysis.php">
-	<textarea name="text" placeholder="Enter text for analysis"></textarea><br>
-	<input type="file" name="docs[]" multiple><br>
-	<input type="submit">
-	
+	<a href="launchDb.php">создать бд</a><br>
+	<a href="loading.php">загрузить текст</a>
+	<?php 
+	require_once 'connectdb.php';
+	$selectQuery = 'SELECT * FROM `uploaded_text` ORDER BY `id` DESC';
+	$query = $pdo->query($selectQuery);
+	while($row = $query->fetch(PDO::FETCH_OBJ)): ?>
+		<p><?php echo $row->id . " / " . substr($row->content, 0, 30) . '...' . " / " . date('l jS \of F Y h:i:s A', $row->date) . " / " . $row->words_count; ?><form method="post" action="specificText.php"><button type="submit" name="id_db" value="<?php echo $row->id; ?>">Детальный анализ</button></form></p>
+	<?php endwhile; ?>	
 </body>
 </html>
